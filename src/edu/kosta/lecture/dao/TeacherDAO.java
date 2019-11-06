@@ -52,7 +52,7 @@ public class TeacherDAO {
 	}
 	
 //////////////////////insert
-	public void insert(List<Teacher> list) {
+	public void insert(Teacher teacher) {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -65,28 +65,19 @@ public class TeacherDAO {
 
 		try {
 			con = DbUtil.getConnection();
-			con.setAutoCommit(false); // 자동 commit 끔
-
 			ps = con.prepareStatement(sql);
 
-			//bulk insert 처리
-			for (Teacher r : list) {
-				ps.setLong(1, r.getTeacherId());
-				ps.setString(2, r.getTeacherName());
-				ps.setString(3, r.getRegistrationNumber());
-				ps.setString(4, r.getPhoneNumber());
-				ps.setString(5, r.getAddress());
-				ps.setString(6, r.getEmail());
-				ps.setDate(7, sqlDate); // 생성 시간
-				ps.setDate(8, sqlDate); // 수정 시간
 
-				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가?
-				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화?
-			}
+			ps.setLong(1, teacher.getTeacherId());
+			ps.setString(2, teacher.getTeacherName());
+			ps.setString(3, teacher.getRegistrationNumber());
+			ps.setString(4, teacher.getPhoneNumber());
+			ps.setString(5, teacher.getAddress());
+			ps.setString(6, teacher.getEmail());
+			ps.setDate(7, sqlDate); // 생성 시간
+			ps.setDate(8, sqlDate); // 수정 시간
 
 			ps.executeBatch(); // 누적된 batch 실행
-			ps.clearBatch(); // 누적된 batch 초기화
-			con.commit(); // Commit하여 적용
 
 		} catch (Exception e) {
 			e.printStackTrace();

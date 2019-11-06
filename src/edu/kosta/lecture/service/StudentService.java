@@ -31,7 +31,7 @@ public class StudentService implements StudentBiz {
 		
 		try {
 			String sql = "INSERT INTO Student(RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
-			dao.insert(list, uos.beginTransaction(sql));
+			dao.bulkInsert(list, uos.beginTransaction(sql));
 			for(Student s : list) {
 				List<Lecture> lectures = s.getLectureList();
 				sql = "INSERT INTO Student(RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";

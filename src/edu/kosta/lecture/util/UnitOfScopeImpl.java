@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UnitOfScopeImpl implements UnitOfScope {
-	Connection con = null;
-	PreparedStatement ps = null;
+	private Connection con = null;
+	private PreparedStatement ps = null;
 
 	public UnitOfScopeImpl() throws SQLException {
 		con = DbUtil.getConnection();
-		con.setAutoCommit(false);                    // ÀÚµ¿ commit ²û
+		con.setAutoCommit(false);                    // ??? commit ??
 	}
 
 	@Override
@@ -34,7 +34,6 @@ public class UnitOfScopeImpl implements UnitOfScope {
 
 	@Override
 	public void endTransaction() throws SQLException {
-		// TODO Auto-generated method stub
 		DbUtil.dbClose(con, ps);
 	}
 

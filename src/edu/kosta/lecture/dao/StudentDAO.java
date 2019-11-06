@@ -9,6 +9,7 @@ import java.util.List;
 import edu.kosta.lecture.model.ClassRoom;
 import edu.kosta.lecture.model.Lecture;
 import edu.kosta.lecture.model.Student;
+import edu.kosta.lecture.model.Teacher;
 import edu.kosta.lecture.util.DbUtil;
 
 public class StudentDAO {
@@ -49,7 +50,7 @@ public class StudentDAO {
 		return list;
 	}
 //////////////////////insert
-	public void insert(List<Student> list) {
+	public void insert(Student student) {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -62,28 +63,17 @@ public class StudentDAO {
 
 		try {
 			con = DbUtil.getConnection();
-			con.setAutoCommit(false); // 자동 commit 끔
-
 			ps = con.prepareStatement(sql);
+			ps.setLong(1, student.getStudentId());
+			ps.setString(2, student.getStudentName());
+			ps.setString(3, student.getRegistrationNumber());
+			ps.setString(4, student.getPhoneNumber());
+			ps.setString(5, student.getAddress());
+			ps.setString(6, student.getEmail());
+			ps.setDate(7, sqlDate); // 생성 시간
+			ps.setDate(8, sqlDate); // 수정 시간
 
-// bulk insert 처리
-			for (Student r : list) {
-				ps.setLong(1, r.getStudentId());
-				ps.setString(2, r.getStudentName());
-				ps.setString(3, r.getRegistrationNumber());
-				ps.setString(4, r.getPhoneNumber());
-				ps.setString(5, r.getAddress());
-				ps.setString(6, r.getEmail());
-				ps.setDate(7, sqlDate); // 생성 시간
-				ps.setDate(8, sqlDate); // 수정 시간
-
-				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가?
-				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화?
-			}
-
-			ps.executeBatch(); // 누적된 batch 실행
-			ps.clearBatch(); // 누적된 batch 초기화
-			con.commit(); // Commit하여 적용
+			ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,6 +144,66 @@ public class StudentDAO {
 
 		} finally {
 			DbUtil.dbClose(con, ps);
+		}
+	}
+
+	public void bulkInsert(List<Student> list, PreparedStatement ps) {
+
+		// Date 변환
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+		try {
+
+			// bulk insert 처리
+			for (Student s : list) {
+				ps.setLong(1, s.getStudentId());
+				ps.setString(2, s.getStudentName());
+				ps.setString(3, s.getRegistrationNumber());
+				ps.setString(4, s.getPhoneNumber());
+				ps.setString(5, s.getAddress());
+				ps.setString(6, s.getEmail());
+				ps.setDate(7, sqlDate); // 생성 시간
+				ps.setDate(8, sqlDate); // 수정 시간
+
+				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
+				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화
+			}
+
+			ps.executeBatch(); // 누적된 batch 실행
+			ps.clearBatch(); // 누적된 batch 초기화
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	public void insertLectureMap(List<Lecture> list, PreparedStatement ps) {
+
+		// Date 변환
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+		try {
+
+			// bulk insert 처리
+			for (Lecture r : list) {
+				//ps.setInt(1, r());
+				//ps.setInt(2, r.getCapacity());
+				ps.setDate(3, sqlDate);
+				ps.setDate(4, sqlDate);
+
+				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
+				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화
+			}
+
+			ps.executeBatch(); // 누적된 batch 실행
+			ps.clearBatch(); // 누적된 batch 초기화
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
 	}
 	

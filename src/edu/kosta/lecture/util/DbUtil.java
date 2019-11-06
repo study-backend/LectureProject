@@ -10,11 +10,11 @@ import java.sql.Statement;
  * DB 연동을 위한 로드, 연결, 실행
  * */
 public class DbUtil {
-	/**
-	 * 로드
-	 * https://kyun2.tistory.com/23 
-	 * 이 부분이 있어 DriverManager를 통한 연결에 대한 사전작업니다
-	 * */
+	 /*
+	  로드
+	  https://kyun2.tistory.com/23
+	  이 부분이 있어 DriverManager 를 통한 연결에 대한 사전작업니다
+	  */
 	static {
 		try{
 			Class.forName(DbProperty.DRIVER_NAME);

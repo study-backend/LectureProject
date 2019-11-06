@@ -7,8 +7,8 @@ import edu.kosta.lecture.model.Teacher;
 
 public interface TeacherBiz {
 	
-	public void selectLectureMap(int teacherId);
+	void selectLectureMap(int teacherId);
 	
-	public void insertLectureMap(List<Teacher> list) throws SQLException;
+	void insertLectureMap(List<Teacher> list) throws SQLException;
 
 }

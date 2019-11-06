@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.kosta.lecture.model.ClassRoom;
+import edu.kosta.lecture.response.GlobalException;
 import edu.kosta.lecture.util.DbUtil;
 
 public class ClassRoomDAO {
 
-	public List<ClassRoom> selectAll() {
+	public List<ClassRoom> selectAll() throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -36,6 +37,7 @@ public class ClassRoomDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -78,6 +80,7 @@ public class ClassRoomDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+
 
 		} finally {
 			DbUtil.dbClose(con, ps);
