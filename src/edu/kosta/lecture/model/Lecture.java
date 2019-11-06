@@ -1,6 +1,7 @@
 package edu.kosta.lecture.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Lecture {
 
@@ -11,6 +12,8 @@ public class Lecture {
 	private Date CreateDate;
 	private Date UpdateDate;
 	
+	private List<Student> studentList;
+	private List<Teacher> teacherList;
 	
 	
 	public Lecture() {}
@@ -61,9 +64,34 @@ public class Lecture {
 	public void setUpdateDate(Date updateDate) {
 		UpdateDate = updateDate;
 	}
+	/**
+	 * @return the studentList
+	 */
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+	/**
+	 * @param studentList the studentList to set
+	 */
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
+	}
+	/**
+	 * @return the teacherList
+	 */
+	public List<Teacher> getTeacherList() {
+		return teacherList;
+	}
+	/**
+	 * @param teacherList the teacherList to set
+	 */
+	public void setTeacherList(List<Teacher> teacherList) {
+		this.teacherList = teacherList;
+	}
+	
 	
 		
-	}
+}
 
 	
 

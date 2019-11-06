@@ -8,8 +8,8 @@ public abstract class ScheduleBase {
 	}
 	public State state = State.Terminated;
 	
-	protected Date triggerTime; 
-	protected Date period;
+	protected Date triggerTime = null; 
+	protected Date period = null;
 	protected Runnable task = null;
     protected Thread tread = null;
 
