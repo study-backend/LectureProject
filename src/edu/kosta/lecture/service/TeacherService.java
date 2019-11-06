@@ -18,7 +18,6 @@ public class TeacherService implements TeacherBiz {
 
 		return list;
 	}
-
 	public void insert(Teacher teacher) throws Exception {
 
 		this.dao.insert(teacher);
