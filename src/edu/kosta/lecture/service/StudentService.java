@@ -19,8 +19,26 @@ public class StudentService implements StudentBiz {
 	}
 	
 
+	public void insert(List<Student> list) {
+		
+		this.dao.insert(list);
+	}
+	//
+
+	public void update(Student student) {
+		
+		this.dao.update(student);
+	}
+
+	
+	public void delete(List<String> ids) {
+			
+		this.dao.delete(ids);
+	}
+		
+	
 	@Override
-	public void selectLectureMap(int studentId) throws SQLException {
+	public void SelectLectureMap(int studentId) {
 		// TODO Auto-generated method stub
 		
 	}

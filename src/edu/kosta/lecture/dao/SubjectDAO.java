@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.kosta.lecture.model.Subject;
-import edu.kosta.lecture.model.Teacher;
 import edu.kosta.lecture.util.DbUtil;
 
 public class SubjectDAO {
