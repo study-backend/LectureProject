@@ -5,8 +5,8 @@ import java.util.Date;
 public class Teacher {
 
 	private long TeacherId;
-	private String StudentName;
-	private String RegisterationNumber;
+	private String TeacherName;
+	private String RegistrationNumber;
 	private String PhoneNumber;
 	private String Address;
 	private String Email;
@@ -15,11 +15,11 @@ public class Teacher {
 	
 	
 	public Teacher() {}
-	public Teacher(long TeacherId, String StudentName, String RegisterationNumber, String PhoneNumber, String Address, 
+	public Teacher(long TeacherId, String TeacherName, String RegistrationNumber, String PhoneNumber, String Address, 
 						String Email, Date CreateDate, Date UpdateDate) {
 		this.TeacherId = TeacherId;
-		this.StudentName = StudentName;
-		this.RegisterationNumber = RegisterationNumber;
+		this.TeacherName = TeacherName;
+		this.RegistrationNumber = RegistrationNumber;
 		this.PhoneNumber = PhoneNumber;
 		this.Address = Address;
 		this.Email = Email;
@@ -32,17 +32,17 @@ public class Teacher {
 	public void setTeacherId(long teacherId) {
 		TeacherId = teacherId;
 	}
-	public String getStudentName() {
-		return StudentName;
+	public String getTeacherName() {
+		return TeacherName;
 	}
-	public void setStudentName(String studentName) {
-		StudentName = studentName;
+	public void setTeacherName(String studentName) {
+		TeacherName = studentName;
 	}
-	public String getRegisterationNumber() {
-		return RegisterationNumber;
+	public String getRegistrationNumber() {
+		return RegistrationNumber;
 	}
-	public void setRegisterationNumber(String registerationNumber) {
-		RegisterationNumber = registerationNumber;
+	public void setRegistrationNumber(String registrationNumber) {
+		RegistrationNumber = registrationNumber;
 	}
 	public String getPhoneNumber() {
 		return PhoneNumber;
