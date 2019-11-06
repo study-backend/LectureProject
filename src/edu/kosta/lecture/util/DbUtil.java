@@ -12,6 +12,8 @@ import java.sql.Statement;
 public class DbUtil {
 	/**
 	 * 로드
+	 * https://kyun2.tistory.com/23 
+	 * 이 부분이 있어 DriverManager를 통한 연결에 대한 사전작업니다
 	 * */
 	static {
 		try{

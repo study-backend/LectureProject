@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.kosta.lecture.model.ClassRoom;
+import edu.kosta.lecture.model.Lecture;
 import edu.kosta.lecture.model.Student;
 import edu.kosta.lecture.util.DbUtil;
 

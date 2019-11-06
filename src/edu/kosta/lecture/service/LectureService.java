@@ -2,7 +2,6 @@ package edu.kosta.lecture.service;
 
 import java.util.List;
 
-import edu.kosta.lecture.dao.LectureDAO;
 import edu.kosta.lecture.model.Lecture;
 
 import edu.kosta.lecture.biz.LectureBiz;

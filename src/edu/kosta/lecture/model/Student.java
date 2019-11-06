@@ -5,78 +5,78 @@ import java.util.List;
 
 public class Student {
 
-	private long StudentId;
-	private String StudentName;
-	private String RegistrationNumber;
-	private String PhoneNumber;
-	private String Address;
-	private String Email;
+	private long studentId;
+	private String studentName;
+	private String registrationNumber;
+	private String phoneNumber;
+	private String address;
+	private String email;
 	private Date subscriptionDate;
 	private Date unsubscriptionDate;
 	private boolean isSubscription;
 	
-	private Date CreateDate;
-	private Date UpdateDate;
+	private Date createDate;
+	private Date updateDate;
 	
 	private List<Lecture> lectureList;
 	
 	
 	public Student() {}
-	public Student(long StudentId, String StudentName, String RegistrationNumber, String PhoneNumber, String Address, String Email) {
-		this.StudentId = StudentId;
-		this.StudentName = StudentName;
-		this.RegistrationNumber = RegistrationNumber;
-		this.PhoneNumber = PhoneNumber;
-		this.Address = Address;
-		this.Email = Email;
+	public Student(long studentId, String studentName, String registrationNumber, String phoneNumber, String address, String email) {
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.registrationNumber = registrationNumber;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.email = email;
 	}
 	public long getStudentId() {
-		return StudentId;
+		return studentId;
 	}
 	public void setStudentId(long studentId) {
-		StudentId = studentId;
+		this.studentId = studentId;
 	}
 	public String getStudentName() {
-		return StudentName;
+		return studentName;
 	}
 	public void setStudentName(String studentName) {
-		StudentName = studentName;
+		this.studentName = studentName;
 	}
 	public String getRegistrationNumber() {
-		return RegistrationNumber;
+		return registrationNumber;
 	}
 	public void setRegistrationNumber(String registrationNumber) {
-		RegistrationNumber = registrationNumber;
+		this.registrationNumber = registrationNumber;
 	}
 	public String getPhoneNumber() {
-		return PhoneNumber;
+		return phoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
-		PhoneNumber = phoneNumber;
+		this.phoneNumber = phoneNumber;
 	}
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 	public Date getCreateDate() {
-		return CreateDate;
+		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
-		CreateDate = createDate;
+		this.createDate = createDate;
 	}
 	public Date getUpdateDate() {
-		return UpdateDate;
+		return updateDate;
 	}
 	public void setUpdateDate(Date updateDate) {
-		UpdateDate = updateDate;
+		this.updateDate = updateDate;
 	}
 	
 	
