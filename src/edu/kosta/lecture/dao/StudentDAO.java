@@ -1,5 +1,6 @@
 package edu.kosta.lecture.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +50,7 @@ public class StudentDAO {
 		return list;
 	}
 //////////////////////insert
-	public void insert(Student student) throws Exception { {
+	public void insert(Student student) throws Exception { 
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -181,7 +182,7 @@ public class StudentDAO {
 		}
 	}
 
-	public void insertLectureMap(List<Lecture> list, int studentId, PreparedStatement ps) {
+	public void insertLectureMap(List<Lecture> list, long studentId, PreparedStatement ps) throws Exception {
 
 		// Date 변환
 		java.util.Date utilDate = new java.util.Date();
@@ -191,8 +192,8 @@ public class StudentDAO {
 
 			// bulk insert 처리
 			for (Lecture l : list) {
-		        ps.setInt(1, studentId);
-		        ps.setInt(2, l.getLectureId());
+				ps.setLong(1, studentId);
+				ps.setLong(2, l.getLectureId());
 				ps.setDate(3, sqlDate);
 				ps.setDate(4, sqlDate);
 
@@ -205,8 +206,11 @@ public class StudentDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		}
 	}
 
 }
+
+

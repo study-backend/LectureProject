@@ -155,7 +155,9 @@ public class TeacherDAO {
 	}
 
 
-	public void bulkinsert(List<Teacher> list, PreparedStatement ps) {
+	public void bulkInsert(List<Teacher> list, PreparedStatement ps) throws Exception  {
+		
+		
 		
 		// Date 변환
 		java.util.Date utilDate = new java.util.Date();
@@ -165,10 +167,14 @@ public class TeacherDAO {
 			
 			// bulk insert 처리
 			for (Teacher r : list) {
-				ps.setInt(1, r());
-				ps.setInt(2, r.getCapacity());
-				ps.setDate(3, sqlDate);
-				ps.setDate(4, sqlDate);
+				ps.setLong(1, r.getTeacherId());
+				ps.setString(2, r.getTeacherName());
+				ps.setString(3, r.getRegistrationNumber());
+				ps.setString(4, r.getPhoneNumber());
+				ps.setString(5, r.getAddress());
+				ps.setString(6, r.getEmail());
+				ps.setDate(7, sqlDate); // 생성 시간
+				ps.setDate(8, sqlDate); // 수정 시간
 
 				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
 				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화
@@ -179,11 +185,12 @@ public class TeacherDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} 
 	}
 
-	public void insertLectureMap(List<Lecture> list, PreparedStatement ps) {
+	public void insertLectureMap(List<Lecture> list, PreparedStatement ps) throws Exception {
 		
 		// Date 변환
 		java.util.Date utilDate = new java.util.Date();
@@ -195,9 +202,11 @@ public class TeacherDAO {
 			
 			// bulk insert 처리
 			for (Lecture r : list) {
-				//ps.setInt(1, r());
-				//ps.setInt(2, r.getCapacity());
-				ps.setDate(3, sqlDate);
+				ps.setLong(1, r.getLectureId());
+				ps.setInt(2, r.getRoomCode());
+				ps.setInt(3, r.getSubjectCode());
+				ps.setInt(4, r.getTime());
+				ps.setDate(3, sqlDate); // 생성 시간
 				ps.setDate(4, sqlDate);
 
 				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
@@ -209,7 +218,10 @@ public class TeacherDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} 
 	}
+
+	
 }

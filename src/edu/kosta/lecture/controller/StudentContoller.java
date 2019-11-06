@@ -9,19 +9,19 @@ public class StudentContoller {
 
 	private static StudentService service = new StudentService();
 	// 서비스의 메소드 호출
-	public static void selectAll() {
+	public static void selectAll() throws Exception {
 		List<Student> list = service.selectAll();
 	}
 	
-	public static void insert(List<Student> list) {
-		service.insert(list);
+	public static void insert(Student student) throws Exception {
+		service.insert(student);
 	}
 	
-	public static void update(Student student) {
+	public static void update(Student student) throws Exception {
 		service.update(student);
 	}
 
-	public static void delete(List<String> ids) {
+	public static void delete(List<String> ids) throws Exception {
 		service.delete(ids);
 	}
 }

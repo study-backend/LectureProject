@@ -2,8 +2,8 @@ package edu.kosta.lecture.biz;
 
 public interface LectureBiz {
 	
-	void SelectStudentMap(int lectureId);
+	void selectStudentMap(int lectureId);
 	
-	void SelectTeacherMap(int lectureId);
+	void selectTeacherMap(int lectureId);
 
 }

@@ -10,19 +10,19 @@ public class SubjectController {
 
 	private static SubjectService service = new SubjectService();
 
-	public static void selectAll() {
+	public static void selectAll() throws Exception {
 		List<Subject> list = service.selectAll();
 	}
 	
-	public static void insert(List<Subject> list) {
+	public static void insert(List<Subject> list) throws Exception {
 		service.insert(list);
 	}
 	
-	public static void update(Subject subject) {
+	public static void update(Subject subject) throws Exception {
 		service.update(subject);
 	}
 
-	public static void delete(List<String> ids) {
+	public static void delete(List<String> ids) throws Exception {
 		service.delete(ids);
 	}
 }
