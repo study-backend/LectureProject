@@ -1,22 +1,19 @@
 package edu.kosta.lecture.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/study-backend/LectureProject.git
 import edu.kosta.lecture.model.Lecture;
-import edu.kosta.lecture.model.Student;
-=======
->>>>>>> 1196a3b [정 준상] 1. DAO를 서비스 호출 후 컨트롤에서 호출 작업 완료
 import edu.kosta.lecture.model.Teacher;
 import edu.kosta.lecture.util.DbUtil;
 
 public class TeacherDAO {
 
-	public List<Teacher> selectAll() {
+	public List<Teacher> selectAll() throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -46,7 +43,7 @@ public class TeacherDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			throw e;
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
@@ -55,7 +52,7 @@ public class TeacherDAO {
 	}
 	
 //////////////////////insert
-	public void insert(Teacher teacher) {
+	public void insert(Teacher teacher) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -84,6 +81,7 @@ public class TeacherDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -91,7 +89,7 @@ public class TeacherDAO {
 	}
 
 //////////////////////update
-	public void update(Teacher teacher) {
+	public void update(Teacher teacher) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -119,6 +117,7 @@ public class TeacherDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -126,7 +125,7 @@ public class TeacherDAO {
 	}
 
 //////////////////////delete
-	public void delete(List<String> ids) {
+	public void delete(List<String> ids) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -148,6 +147,7 @@ public class TeacherDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -155,7 +155,7 @@ public class TeacherDAO {
 	}
 
 
-	public void insert(List<Teacher> list, PreparedStatement ps) {
+	public void bulkinsert(List<Teacher> list, PreparedStatement ps) {
 		
 		// Date ��ȯ
 		java.util.Date utilDate = new java.util.Date();
@@ -165,8 +165,8 @@ public class TeacherDAO {
 			
 			// bulk insert ó��
 			for (Teacher r : list) {
-				//ps.setInt(1, r());
-				//ps.setInt(2, r.getCapacity());
+				ps.setInt(1, r());
+				ps.setInt(2, r.getCapacity());
 				ps.setDate(3, sqlDate);
 				ps.setDate(4, sqlDate);
 

@@ -47,7 +47,7 @@ public class ClassRoomDAO {
 
 	}
 	
-	public void insert(List<ClassRoom> list) {
+	public void insert(List<ClassRoom> list) throws Exception  {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -80,6 +80,7 @@ public class ClassRoomDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 
 		} finally {
@@ -87,7 +88,7 @@ public class ClassRoomDAO {
 		}
 	}
 	
-	public void update(ClassRoom room) {
+	public void update(ClassRoom room) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -111,13 +112,14 @@ public class ClassRoomDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
 	}
 	
-	public void delete(List<String> ids) {
+	public void delete(List<String> ids) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -139,6 +141,7 @@ public class ClassRoomDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
