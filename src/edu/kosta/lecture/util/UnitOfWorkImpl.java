@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UnitOfScopeImpl implements UnitOfScope {
+public class UnitOfWorkImpl implements UnitOfWork {
 	private Connection con = null;
 	private PreparedStatement ps = null;
 
-	public UnitOfScopeImpl() throws SQLException {
+	public UnitOfWorkImpl() throws SQLException {
 		con = DbUtil.getConnection();
 		con.setAutoCommit(false);                    // ??? commit ??
 	}

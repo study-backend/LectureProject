@@ -8,8 +8,8 @@ import edu.kosta.lecture.dao.TeacherDAO;
 import edu.kosta.lecture.model.Lecture;
 import edu.kosta.lecture.model.Student;
 import edu.kosta.lecture.model.Teacher;
-import edu.kosta.lecture.util.UnitOfScope;
-import edu.kosta.lecture.util.UnitOfScopeImpl;
+import edu.kosta.lecture.util.UnitOfWork;
+import edu.kosta.lecture.util.UnitOfWorkImpl;
 
 public class TeacherService implements TeacherBiz {
 
@@ -20,9 +20,6 @@ public class TeacherService implements TeacherBiz {
 
 		return list;
 	}
-<<<<<<< Upstream, based on branch 'master' of https://github.com/study-backend/LectureProject.git
-
-=======
 	
 	public void insert(List<Teacher> list) {
 		
@@ -41,40 +38,35 @@ public class TeacherService implements TeacherBiz {
 		this.dao.delete(ids);
 	}
 		
-	
->>>>>>> 1196a3b [정 준상] 1. DAO를 서비스 호출 후 컨트롤에서 호출 작업 완료
+
 	@Override
 	public void selectLectureMap(int teacherId) {
 		// TODO Auto-generated method stub
 		
 	}
-<<<<<<< Upstream, based on branch 'master' of https://github.com/study-backend/LectureProject.git
+
 
 	@Override
 	public void insertLectureMap(List<Teacher> list) throws SQLException {
-		UnitOfScope uos = new UnitOfScopeImpl();
+		UnitOfWork uow = new UnitOfWorkImpl();
 		
 		try {
-			String sql = "INSERT INTO Student(RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
-			dao.insert(list, uos.beginTransaction(sql));
+			String sql = "INSERT INTO Teacher(TeacherId, TeacherName, RegistrationNumber, Address, PhoneNumber, Email, CreateDate, UpdateDate) VALUES(?, ?, ?, ?, ?, ?, ? )";
+			dao.bulkinsert(list, uow.beginTransaction(sql));
 			for(Teacher s : list) {
 				List<Lecture> lectures = s.getLectureList();
-				sql = "INSERT INTO Student(RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
-				dao.insertLectureMap(lectures, uos.beginTransaction(sql));
+				sql = "INSERT INTO (RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
+				dao.insertLectureMap(lectures, uow.beginTransaction(sql));
 			}
 			
-			uos.commit();
+			uow.commit();
 			
 		} catch(Exception e) {
-			uos.rollback();
+			uow.rollback();
 			
 		} finally {
-			uos.endTransaction();
+			uow.endTransaction();
 		}
 		
 	}
-=======
-	
-	
->>>>>>> 1196a3b [정 준상] 1. DAO를 서비스 호출 후 컨트롤에서 호출 작업 완료
 }

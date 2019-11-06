@@ -19,7 +19,7 @@ public class TeacherDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Teacher> list = new ArrayList<Teacher>();
-		String sql = "select * from Teacher";
+		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber, Address, Email, CreateDate, UpdateDate from Teacher";
 
 		try {
 			con = DbUtil.getConnection();
@@ -33,7 +33,7 @@ public class TeacherDAO {
 				teacher.setTeacherName(rs.getString("TeacherName"));
 				teacher.setRegistrationNumber(rs.getString("RegistrationNumber"));
 				teacher.setPhoneNumber(rs.getString("PhoneNumber"));
-				teacher.setAddress(rs.getString("Adress"));
+				teacher.setAddress(rs.getString("Address"));
 				teacher.setEmail(rs.getString("Email"));
 				teacher.setCreateDate(rs.getDate("CreateDate"));
 				teacher.setUpdateDate(rs.getDate("UpdateDate"));

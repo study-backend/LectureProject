@@ -6,10 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.kosta.lecture.model.ClassRoom;
 import edu.kosta.lecture.model.Lecture;
 import edu.kosta.lecture.model.Student;
-import edu.kosta.lecture.model.Teacher;
 import edu.kosta.lecture.util.DbUtil;
 
 public class StudentDAO {
@@ -122,7 +120,7 @@ public class StudentDAO {
 	}
 	
 //////////////////////delete
-	public void delete(List<String> ids) throws Exception {
+	public void delete(List<String> ids) throws Exception  {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -183,7 +181,7 @@ public class StudentDAO {
 		}
 	}
 
-	public void insertLectureMap(List<Lecture> list, PreparedStatement ps) {
+	public void insertLectureMap(List<Lecture> list, int studentId, PreparedStatement ps) {
 
 		// Date 변환
 		java.util.Date utilDate = new java.util.Date();
@@ -192,9 +190,9 @@ public class StudentDAO {
 		try {
 
 			// bulk insert 처리
-			for (Lecture r : list) {
-				//ps.setInt(1, r());
-				//ps.setInt(2, r.getCapacity());
+			for (Lecture l : list) {
+		        ps.setInt(1, studentId);
+		        ps.setInt(2, l.getLectureId());
 				ps.setDate(3, sqlDate);
 				ps.setDate(4, sqlDate);
 

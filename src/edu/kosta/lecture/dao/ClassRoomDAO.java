@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.kosta.lecture.model.ClassRoom;
-import edu.kosta.lecture.response.GlobalException;
 import edu.kosta.lecture.util.DbUtil;
 
 public class ClassRoomDAO {
@@ -18,7 +17,7 @@ public class ClassRoomDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<ClassRoom> list = new ArrayList<ClassRoom>(); 
-		String sql = "select * from ClassRoom";
+		String sql = "SELECT RoomCode, Capacity, CreateDate, UpdateDate FROM ClassRoom";
 
 		try {
 			con = DbUtil.getConnection();
@@ -33,7 +32,6 @@ public class ClassRoomDAO {
 				classroom.setUpdateDate(rs.getDate("UpdateDate"));
 
 				list.add(classroom);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,9 +124,9 @@ public class ClassRoomDAO {
 		String sql = "DELETE FROM ClassRoom  WHERE RoomCode in (?)";
 		String param = "";
 		for(int i = 0; i < ids.size() ; i++) {
-			if((i+1) == ids.size()) 
+			if((i+1) == ids.size())
 				param = param + ids.get(i);
-			else 
+			else
 				param = param + ids.get(i) + ",";
 		}
 		

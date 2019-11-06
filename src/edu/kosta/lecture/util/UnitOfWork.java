@@ -3,7 +3,7 @@ package edu.kosta.lecture.util;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public interface UnitOfScope {
+public interface UnitOfWork {
 	
 	PreparedStatement beginTransaction(String sql) throws SQLException;
 	
