@@ -12,5 +12,16 @@ public class ClassRoomController {
 		List<ClassRoom> list = service.selectAll();
 
 	}
+	
+	public static void insert(List<ClassRoom> list) {
+		service.insert(list);
+	}
+	
+	public static void update(ClassRoom room) {
+		service.update(room);
+	}
 
+	public static void delete(List<String> ids) {
+		service.delete(ids);
+	}
 }

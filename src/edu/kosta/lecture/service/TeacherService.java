@@ -20,12 +20,35 @@ public class TeacherService implements TeacherBiz {
 
 		return list;
 	}
+<<<<<<< Upstream, based on branch 'master' of https://github.com/study-backend/LectureProject.git
 
+=======
+	
+	public void insert(List<Teacher> list) {
+		
+		this.dao.insert(list);
+	}
+	//
+
+	public void update(Teacher teacher) {
+		
+		this.dao.update(teacher);
+	}
+
+	
+	public void delete(List<String> ids) {
+			
+		this.dao.delete(ids);
+	}
+		
+	
+>>>>>>> 1196a3b [정 준상] 1. DAO를 서비스 호출 후 컨트롤에서 호출 작업 완료
 	@Override
 	public void selectLectureMap(int teacherId) {
 		// TODO Auto-generated method stub
 		
 	}
+<<<<<<< Upstream, based on branch 'master' of https://github.com/study-backend/LectureProject.git
 
 	@Override
 	public void insertLectureMap(List<Teacher> list) throws SQLException {
@@ -50,4 +73,8 @@ public class TeacherService implements TeacherBiz {
 		}
 		
 	}
+=======
+	
+	
+>>>>>>> 1196a3b [정 준상] 1. DAO를 서비스 호출 후 컨트롤에서 호출 작업 완료
 }

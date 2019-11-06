@@ -13,4 +13,16 @@ public class TeacherController {
 	public static void selectAll() {
 		List<Teacher> list = service.selectAll();
 	}
+	
+	public static void insert(List<Teacher> list) {
+		service.insert(list);
+	}
+	
+	public static void update(Teacher teacher) {
+		service.update(teacher);
+	}
+
+	public static void delete(List<String> ids) {
+		service.delete(ids);
+	}
 }

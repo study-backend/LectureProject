@@ -14,4 +14,16 @@ public class LectureController {
 		List<Lecture> list = service.selectAll();
 
 	}
+	
+	public static void insert(List<Lecture> list) {
+		service.insert(list);
+	}
+	
+	public static void update(Lecture lecture) {
+		service.update(lecture);
+	}
+
+	public static void delete(List<String> ids) {
+		service.delete(ids);
+	}
 }
