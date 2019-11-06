@@ -21,4 +21,9 @@ public class LectureService implements LectureBiz {
 		
 	}
 
+	public List<Lecture> selectAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
