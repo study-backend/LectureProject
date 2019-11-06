@@ -13,7 +13,7 @@ import edu.kosta.lecture.util.DbUtil;
 
 public class StudentDAO {
 
-	public List<Student> selectAll() {
+	public List<Student> selectAll() throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -42,6 +42,7 @@ public class StudentDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -49,7 +50,7 @@ public class StudentDAO {
 		return list;
 	}
 //////////////////////insert
-	public void insert(List<Student> list) {
+	public void insert(List<Student> list) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -87,6 +88,7 @@ public class StudentDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -94,7 +96,7 @@ public class StudentDAO {
 	}
 	
 //////////////////////update
-	public void update(Student student) {
+	public void update(Student student) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -122,6 +124,7 @@ public class StudentDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -129,7 +132,7 @@ public class StudentDAO {
 	}
 	
 //////////////////////delete
-	public void delete(List<String> ids) {
+	public void delete(List<String> ids) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -151,7 +154,8 @@ public class StudentDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			throw e;
+			
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}

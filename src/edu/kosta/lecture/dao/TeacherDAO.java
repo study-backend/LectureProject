@@ -1,16 +1,13 @@
 package edu.kosta.lecture.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/study-backend/LectureProject.git
 import edu.kosta.lecture.model.Lecture;
-import edu.kosta.lecture.model.Student;
-=======
->>>>>>> 1196a3b [정 준상] 1. DAO를 서비스 호출 후 컨트롤에서 호출 작업 완료
 import edu.kosta.lecture.model.Teacher;
 import edu.kosta.lecture.util.DbUtil;
 

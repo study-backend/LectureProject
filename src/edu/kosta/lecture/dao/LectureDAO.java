@@ -11,7 +11,7 @@ import edu.kosta.lecture.util.DbUtil;
 
 public class LectureDAO {
 //////////////////////selectAll
-	public List<Lecture> selectAll() {
+	public List<Lecture> selectAll() throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -38,6 +38,7 @@ public class LectureDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -47,7 +48,7 @@ public class LectureDAO {
 	
 	
 //////////////////////insert
-	public void insert(List<Lecture> list) {
+	public void insert(List<Lecture> list) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -82,6 +83,7 @@ public class LectureDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -90,7 +92,7 @@ public class LectureDAO {
 	
 	
 //////////////////////update
-	public void update(Lecture lecture) {
+	public void update(Lecture lecture) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -115,6 +117,7 @@ public class LectureDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -123,7 +126,7 @@ public class LectureDAO {
 	
 	
 //////////////////////delete
-	public void delete(List<String> ids) {
+	public void delete(List<String> ids) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -145,7 +148,8 @@ public class LectureDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			throw e;
+			
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
