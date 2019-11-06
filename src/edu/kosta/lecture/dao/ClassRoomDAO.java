@@ -1,7 +1,6 @@
 package edu.kosta.lecture.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -83,7 +82,62 @@ public class ClassRoomDAO {
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
+	}
+	
+	public void update(ClassRoom room) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		// Date º¯È¯
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		
+		String sql = "UPDATE ClassRoom SET Capacity = ?, UpdateDate = ? WHERE RoomCode = ?";
 
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, room.getCapacity());
+			ps.setDate(2, sqlDate);
+			ps.setInt(3, room.getRoomCode());
+			
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+	}
+	
+	public void delete(List<String> ids) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "DELETE FROM ClassRoom  WHERE RoomCode in (?)";
+		String param = "";
+		for(int i = 0; i < ids.size() ; i++) {
+			if((i+1) == ids.size()) 
+				param = param + ids.get(i);
+			else 
+				param = param + ids.get(i) + ",";
+		}
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, param);
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
 	}
 
 }
