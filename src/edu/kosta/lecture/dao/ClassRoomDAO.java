@@ -16,7 +16,7 @@ public class ClassRoomDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<ClassRoom> list = new ArrayList<ClassRoom>();
+		List<ClassRoom> list = new ArrayList<ClassRoom>(); 
 		String sql = "select * from ClassRoom";
 
 		try {
@@ -65,8 +65,8 @@ public class ClassRoomDAO {
 			for (ClassRoom r : list) {
 				ps.setInt(1, r.getRoomCode());
 				ps.setInt(2, r.getCapacity());
-				ps.setDate(3, sqlDate);
-				ps.setDate(4, sqlDate);
+				ps.setDate(3, sqlDate); //생성 시간
+				ps.setDate(4, sqlDate); //수정 시간
 
 				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
 				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화
@@ -93,6 +93,8 @@ public class ClassRoomDAO {
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
 		String sql = "UPDATE ClassRoom SET Capacity = ?, UpdateDate = ? WHERE RoomCode = ?";
+						// 업데이트 할 때 업데이트 할때의 값을 바꿔주는 거고 
+						// 생성이랑 수정을 값을 똑같이 넣어준다
 
 		try {
 			con = DbUtil.getConnection();

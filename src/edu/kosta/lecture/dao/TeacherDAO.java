@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.kosta.lecture.model.Student;
 import edu.kosta.lecture.model.Teacher;
 import edu.kosta.lecture.util.DbUtil;
 
@@ -47,6 +48,115 @@ public class TeacherDAO {
 		}
 		return list;
 
+	}
+	
+//////////////////////insert
+	public void insert(List<Teacher> list) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		//Date 변환
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+		String sql = "INSERT INTO Teacher(TeacherId, TeacherName, RegistrationNumber, PhoneNumber, Address, Email, CreateDate, UpdateDate) "
+				+ "VALUES(?, ?, ?, ? ,? ,? , ?, ?)";
+
+		try {
+			con = DbUtil.getConnection();
+			con.setAutoCommit(false); // 자동 commit 끔
+
+			ps = con.prepareStatement(sql);
+
+			//bulk insert 처리
+			for (Teacher r : list) {
+				ps.setLong(1, r.getTeacherId());
+				ps.setString(2, r.getTeacherName());
+				ps.setString(3, r.getRegistrationNumber());
+				ps.setString(4, r.getPhoneNumber());
+				ps.setString(5, r.getAddress());
+				ps.setString(6, r.getEmail());
+				ps.setDate(7, sqlDate); // 생성 시간
+				ps.setDate(8, sqlDate); // 수정 시간
+
+				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가?
+				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화?
+			}
+
+			ps.executeBatch(); // 누적된 batch 실행
+			ps.clearBatch(); // 누적된 batch 초기화
+			con.commit(); // Commit하여 적용
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+	}
+
+//////////////////////update
+	public void update(Teacher teacher) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		//Date 변환
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+		String sql = "UPDATE Teacher SET  TeacherName= ?, RegistrationNumber = ?, PhoneNumber = ?, Address = ? , "
+				+ "Email = ?, UpdateDate = ? WHERE TeacherId = ?";
+		//강사  아이디가 "" 일 때 모두 변경 가능
+
+		try {
+			con = DbUtil.getConnection(); // 연걸
+			ps = con.prepareStatement(sql); // SQL문 준비
+
+			ps.setString(1, teacher.getTeacherName());
+			ps.setString(2, teacher.getRegistrationNumber());
+			ps.setString(3, teacher.getPhoneNumber());
+			ps.setString(4, teacher.getAddress());
+			ps.setString(5, teacher.getEmail());
+			ps.setDate(6, sqlDate);
+			ps.setLong(7, teacher.getTeacherId());
+
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+	}
+
+//////////////////////delete
+	public void delete(List<String> ids) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		String sql = "DELETE FROM Teacher  WHERE TeacherId in (?)";
+		String param = "";
+		for (int i = 0; i < ids.size(); i++) {
+			if ((i + 1) == ids.size())
+				param = param + ids.get(i);
+			else
+				param = param + ids.get(i) + ",";
+		}
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, param);
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
 	}
 
 }
