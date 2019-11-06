@@ -17,7 +17,7 @@ public class LectureDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Lecture> list = new ArrayList<Lecture>();
-		String sql = "select * from Lecture";
+		String sql = "SELECT LectureId, RoomCode, SubjectCode, Time, CreateDate, UpdateDate FROM Lecture";
 
 		try {
 			con = DbUtil.getConnection();
@@ -26,7 +26,7 @@ public class LectureDAO {
 
 			while (rs.next()) {
 				Lecture lecture = new Lecture();
-				lecture.setLectureId(rs.getLong("lectureId"));
+				lecture.setLectureId(rs.getLong("LectureId"));
 				lecture.setRoomCode(rs.getInt("RoomCode"));
 				lecture.setSubjectCode(rs.getInt("SubjectCode"));
 				lecture.setTime(rs.getInt("Time"));
@@ -65,13 +65,13 @@ public class LectureDAO {
 			ps = con.prepareStatement(sql);
 
 			// bulk insert 처리
-			for (Lecture r : list) {
+			for (Lecture r: list) {
 				ps.setLong(1, r.getLectureId());
 				ps.setInt(2, r.getRoomCode());
 				ps.setInt(3, r.getSubjectCode());
 				ps.setInt(4, r.getTime());
-				ps.setDate(3, sqlDate); // 생성 시간
-				ps.setDate(4, sqlDate); // 수정 시간
+				ps.setDate(5, sqlDate); // 생성 시간
+				ps.setDate(6, sqlDate); // 수정 시간
 
 				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가?
 				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화?
@@ -130,7 +130,7 @@ public class LectureDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "DELETE FROM Lecture  WHERE RoomCode in (?)";
+		String sql = "DELETE FROM Lecture  WHERE RoomCode IN (?)";
 		String param = "";
 		for (int i = 0; i < ids.size(); i++) {
 			if ((i + 1) == ids.size())

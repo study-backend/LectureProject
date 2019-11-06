@@ -121,7 +121,7 @@ public class ClassRoomDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "DELETE FROM ClassRoom  WHERE RoomCode in (?)";
+		String sql = "DELETE FROM ClassRoom WHERE RoomCode IN (?)";
 		String param = "";
 		for(int i = 0; i < ids.size() ; i++) {
 			if((i+1) == ids.size())

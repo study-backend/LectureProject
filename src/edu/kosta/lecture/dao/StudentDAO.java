@@ -19,7 +19,8 @@ public class StudentDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Student> list = new ArrayList<Student>();
-		String sql = "select * from Student";
+		String sql = "SELECT StudentId, StudentName, RegistrationNumber, PhoneNumber, Adress, Email, "
+						+ "CreateDate, UpdateDate FROM Student";
 
 		try {
 			con = DbUtil.getConnection();
@@ -196,6 +197,13 @@ public class StudentDAO {
 				ps.setLong(2, l.getLectureId());
 				ps.setDate(3, sqlDate);
 				ps.setDate(4, sqlDate);
+			for (Lecture r : list) {
+				ps.setLong(1, r.getLectureId());
+				ps.setInt(2, r.getRoomCode());
+				ps.setInt(3, r.getSubjectCode());
+				ps.setInt(4, r.getTime());
+				ps.setDate(5, sqlDate); // 생성 시간
+				ps.setDate(6, sqlDate); // 수정 시간
 
 				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
 				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화

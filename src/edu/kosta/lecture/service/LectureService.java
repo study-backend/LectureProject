@@ -5,7 +5,6 @@ import java.util.List;
 import edu.kosta.lecture.biz.LectureBiz;
 import edu.kosta.lecture.dao.LectureDAO;
 import edu.kosta.lecture.model.Lecture;
-import edu.kosta.lecture.model.Student;
 
 public class LectureService implements LectureBiz {
 	private LectureDAO dao = new LectureDAO();

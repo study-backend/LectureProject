@@ -17,7 +17,7 @@ public class SubjectDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Subject> list = new ArrayList<Subject>();
-		String sql = "select * from Subject";
+		String sql = "SELECT SubjectCode, SubJectName, CreateDate, UpdateDate FROM Subject";
 
 		try {
 			con = DbUtil.getConnection();
@@ -122,7 +122,7 @@ public class SubjectDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "DELETE FROM Subject  WHERE SubjectCode in (?)";
+		String sql = "DELETE FROM Subject WHERE SubjectCode IN (?)";
 		String param = "";
 		for (int i = 0; i < ids.size(); i++) {
 			if ((i + 1) == ids.size())

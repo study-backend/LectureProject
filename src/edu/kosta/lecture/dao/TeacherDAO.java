@@ -20,6 +20,8 @@ public class TeacherDAO {
 		ResultSet rs = null;
 		List<Teacher> list = new ArrayList<Teacher>();
 		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber, Address, Email, CreateDate, UpdateDate from Teacher";
+		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber,"
+						+ "Address, Email, CreateDate, UpdateDate FROM Teacher";
 
 		try {
 			con = DbUtil.getConnection();
@@ -129,7 +131,7 @@ public class TeacherDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		String sql = "DELETE FROM Teacher  WHERE TeacherId in (?)";
+		String sql = "DELETE FROM Teacher WHERE TeacherId IN (?)";
 		String param = "";
 		for (int i = 0; i < ids.size(); i++) {
 			if ((i + 1) == ids.size())
@@ -208,6 +210,12 @@ public class TeacherDAO {
 				ps.setInt(4, r.getTime());
 				ps.setDate(3, sqlDate); // 생성 시간
 				ps.setDate(4, sqlDate);
+				ps.setLong(1, r.getLectureId());
+				ps.setInt(2, r.getRoomCode());
+				ps.setInt(3, r.getSubjectCode());
+				ps.setInt(4, r.getTime());
+				ps.setDate(5, sqlDate); // 생성 시간
+				ps.setDate(6, sqlDate);
 
 				ps.addBatch(); // OraclePreparedStatement에 batch로 완성된 SQL 추가
 				ps.clearParameters(); // OraclePreparedStatement에 지정된 Parameter값 초기화
