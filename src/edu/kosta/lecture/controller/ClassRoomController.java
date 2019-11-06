@@ -9,10 +9,8 @@ public class ClassRoomController {
 	private static ClassRoomService service = new ClassRoomService();
 
 	public static void SelectAll() {
-		List<ClassRoom> list = service.SelectAll();
-		
+		List<ClassRoom> list = service.selectAll();
+
 	}
 
-	
-	
 }

@@ -8,7 +8,7 @@ import edu.kosta.lecture.model.ClassRoom;
 public class ClassRoomService {
 	private ClassRoomDAO dao = new ClassRoomDAO();
 	
-	public List<ClassRoom> SelectAll() {
+	public List<ClassRoom> selectAll() {
 		List<ClassRoom> list = dao.selectAll();
 		return list;
 	}
