@@ -13,7 +13,7 @@ import edu.kosta.lecture.util.DbUtil;
 
 public class TeacherDAO {
 
-	public List<Teacher> selectAll() {
+	public List<Teacher> selectAll() throws Exception {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -43,7 +43,7 @@ public class TeacherDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			throw e;
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
@@ -52,7 +52,7 @@ public class TeacherDAO {
 	}
 	
 //////////////////////insert
-	public void insert(List<Teacher> list) {
+	public void insert(Teacher teacher) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -90,6 +90,7 @@ public class TeacherDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -97,7 +98,7 @@ public class TeacherDAO {
 	}
 
 //////////////////////update
-	public void update(Teacher teacher) {
+	public void update(Teacher teacher) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -125,6 +126,7 @@ public class TeacherDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -132,7 +134,7 @@ public class TeacherDAO {
 	}
 
 //////////////////////delete
-	public void delete(List<String> ids) {
+	public void delete(List<String> ids) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -154,6 +156,7 @@ public class TeacherDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -161,7 +164,7 @@ public class TeacherDAO {
 	}
 
 
-	public void insert(List<Teacher> list, PreparedStatement ps) {
+	public void bulkinsert(List<Teacher> list, PreparedStatement ps) {
 		
 		// Date 변환
 		java.util.Date utilDate = new java.util.Date();
@@ -171,8 +174,8 @@ public class TeacherDAO {
 			
 			// bulk insert 처리
 			for (Teacher r : list) {
-				//ps.setInt(1, r());
-				//ps.setInt(2, r.getCapacity());
+				ps.setInt(1, r());
+				ps.setInt(2, r.getCapacity());
 				ps.setDate(3, sqlDate);
 				ps.setDate(4, sqlDate);
 
