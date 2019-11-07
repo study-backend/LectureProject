@@ -192,11 +192,6 @@ public class StudentDAO {
 		try {
 
 			// bulk insert Ã³¸®
-			for (Lecture l : list) {
-				ps.setLong(1, studentId);
-				ps.setLong(2, l.getLectureId());
-				ps.setDate(3, sqlDate);
-				ps.setDate(4, sqlDate);
 			for (Lecture r : list) {
 				ps.setLong(1, r.getLectureId());
 				ps.setInt(2, r.getRoomCode());

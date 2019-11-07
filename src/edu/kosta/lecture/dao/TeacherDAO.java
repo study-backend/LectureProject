@@ -19,7 +19,6 @@ public class TeacherDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Teacher> list = new ArrayList<Teacher>();
-		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber, Address, Email, CreateDate, UpdateDate from Teacher";
 		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber,"
 						+ "Address, Email, CreateDate, UpdateDate FROM Teacher";
 
@@ -204,12 +203,6 @@ public class TeacherDAO {
 			
 			// bulk insert 贸府
 			for (Lecture r : list) {
-				ps.setLong(1, r.getLectureId());
-				ps.setInt(2, r.getRoomCode());
-				ps.setInt(3, r.getSubjectCode());
-				ps.setInt(4, r.getTime());
-				ps.setDate(3, sqlDate); // 积己 矫埃
-				ps.setDate(4, sqlDate);
 				ps.setLong(1, r.getLectureId());
 				ps.setInt(2, r.getRoomCode());
 				ps.setInt(3, r.getSubjectCode());

@@ -10,9 +10,9 @@ public class LectureController {
 	private static LectureService service = new LectureService();
 
 	// 서비스에서 가져올 데이터를 담을 객체 생성
-	public static void selectAll() throws Exception {
+	public static List<Lecture> selectAll() throws Exception {
 		List<Lecture> list = service.selectAll();
-
+		return list;
 	}
 	
 	public static void insert(List<Lecture> list) throws Exception {
