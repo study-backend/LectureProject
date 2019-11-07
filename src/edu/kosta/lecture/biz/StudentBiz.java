@@ -7,7 +7,7 @@ import edu.kosta.lecture.model.Student;
 
 public interface StudentBiz {
 
-	void selectLectureMap(int studentId) throws Exception;
+	List<Student> selectLectureMap(int studentId) throws Exception;
 	
 	void insertLectureMap(List<Student> list ) throws Exception;
 

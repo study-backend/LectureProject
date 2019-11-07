@@ -2,15 +2,17 @@ package edu.kosta.lecture.controller;
 
 import java.util.List;
 
+import edu.kosta.lecture.biz.StudentBiz;
 import edu.kosta.lecture.model.Student;
 import edu.kosta.lecture.service.StudentService;
 
-public class StudentContoller {
+public class StudentContoller implements StudentBiz {
 
 	private static StudentService service = new StudentService();
-	// ¼­ºñ½ºÀÇ ¸Þ¼Òµå È£Ãâ
-	public static void selectAll() throws Exception {
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ È£ï¿½ï¿½
+	public static List<Student> selectAll() throws Exception {
 		List<Student> list = service.selectAll();
+		return list;
 	}
 	
 	public static void insert(Student student) throws Exception {
@@ -23,5 +25,17 @@ public class StudentContoller {
 
 	public static void delete(List<String> ids) throws Exception {
 		service.delete(ids);
+	}
+
+	@Override
+	public List<Student>  selectLectureMap(int studentId) throws Exception {
+		List<Student> list = service.selectLectureMap(studentId);
+		return list;
+	}
+
+	@Override
+	public void insertLectureMap(List<Student> list) throws Exception {
+		service.insertLectureMap(list);
+		
 	}
 }

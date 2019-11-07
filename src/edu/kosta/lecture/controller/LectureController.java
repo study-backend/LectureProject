@@ -2,14 +2,15 @@ package edu.kosta.lecture.controller;
 
 import java.util.List;
 
+import edu.kosta.lecture.biz.LectureBiz;
 import edu.kosta.lecture.model.Lecture;
 import edu.kosta.lecture.service.LectureService;
 
-public class LectureController {
+public class LectureController implements LectureBiz {
 
 	private static LectureService service = new LectureService();
 
-	// ¼­ºñ½º¿¡¼­ °¡Á®¿Ã µ¥ÀÌÅÍ¸¦ ´ãÀ» °´Ã¼ »ý¼º
+	// ï¿½ï¿½ï¿½ñ½º¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	public static List<Lecture> selectAll() throws Exception {
 		List<Lecture> list = service.selectAll();
 		return list;
@@ -25,5 +26,17 @@ public class LectureController {
 
 	public static void delete(List<String> ids) throws Exception {
 		service.delete(ids);
+	}
+
+	@Override
+	public void selectStudentMap(int lectureId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void selectTeacherMap(int lectureId) {
+		// TODO Auto-generated method stub
+		
 	}
 }

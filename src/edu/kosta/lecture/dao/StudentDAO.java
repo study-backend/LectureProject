@@ -50,12 +50,48 @@ public class StudentDAO {
 		}
 		return list;
 	}
+	
+	public Student selectById(long studentId) throws Exception {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Student s = null;
+		String sql = "SELECT StudentId, StudentName, RegistrationNumber, PhoneNumber, Adress, Email, "
+						+ "CreateDate, UpdateDate FROM Student WHERE StudentId = ?";
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, studentId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				s = new Student();
+				s.setStudentId(rs.getLong("StudentId"));
+				s.setStudentName(rs.getString("StudentName"));
+				s.setRegistrationNumber(rs.getString("RegistrationNumber"));
+				s.setPhoneNumber(rs.getString("PhoneNumber"));
+				s.setAddress(rs.getString("Adress"));
+				s.setEmail(rs.getString("Email"));
+				s.setCreateDate(rs.getDate("CreateDate"));
+				s.setUpdateDate(rs.getDate("UpdateDate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return s;
+	}
+	
 //////////////////////insert
 	public void insert(Student student) throws Exception { 
 		Connection con = null;
 		PreparedStatement ps = null;
 
-// Date º¯È¯
+// Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
@@ -71,8 +107,8 @@ public class StudentDAO {
 			ps.setString(4, student.getPhoneNumber());
 			ps.setString(5, student.getAddress());
 			ps.setString(6, student.getEmail());
-			ps.setDate(7, sqlDate); // »ý¼º ½Ã°£
-			ps.setDate(8, sqlDate); // ¼öÁ¤ ½Ã°£
+			ps.setDate(7, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+			ps.setDate(8, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
 			ps.executeUpdate();
 
@@ -90,13 +126,13 @@ public class StudentDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-// Date º¯È¯
+// Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 		String sql = "UPDATE Student SET  StudentName= ?, RegistrationNumber = ?, PhoneNumber = ?, Address = ? , "
 						+ "Email = ?, UpdateDate = ? WHERE StudentId = ?";
-// ¼ö°­ ¾ÆÀÌµð°¡ "" ÀÏ ¶§ °­ÀÇ½Ç,°ú¸ñ,½Ã°£ º¯°æ
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ "" ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ç½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		try {
 			con = DbUtil.getConnection();
@@ -153,13 +189,13 @@ public class StudentDAO {
 
 	public void bulkInsert(List<Student> list, PreparedStatement ps) {
 
-		// Date º¯È¯
+		// Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 		try {
 
-			// bulk insert Ã³¸®
+			// bulk insert Ã³ï¿½ï¿½
 			for (Student s : list) {
 				ps.setLong(1, s.getStudentId());
 				ps.setString(2, s.getStudentName());
@@ -167,15 +203,15 @@ public class StudentDAO {
 				ps.setString(4, s.getPhoneNumber());
 				ps.setString(5, s.getAddress());
 				ps.setString(6, s.getEmail());
-				ps.setDate(7, sqlDate); // »ý¼º ½Ã°£
-				ps.setDate(8, sqlDate); // ¼öÁ¤ ½Ã°£
+				ps.setDate(7, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+				ps.setDate(8, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-				ps.addBatch(); // OraclePreparedStatement¿¡ batch·Î ¿Ï¼ºµÈ SQL Ãß°¡
-				ps.clearParameters(); // OraclePreparedStatement¿¡ ÁöÁ¤µÈ Parameter°ª ÃÊ±âÈ­
+				ps.addBatch(); // OraclePreparedStatementï¿½ï¿½ batchï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½ SQL ï¿½ß°ï¿½
+				ps.clearParameters(); // OraclePreparedStatementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Parameterï¿½ï¿½ ï¿½Ê±ï¿½È­
 			}
 
-			ps.executeBatch(); // ´©ÀûµÈ batch ½ÇÇà
-			ps.clearBatch(); // ´©ÀûµÈ batch ÃÊ±âÈ­
+			ps.executeBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½ï¿½ï¿½ï¿½
+			ps.clearBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½Ê±ï¿½È­
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -185,33 +221,71 @@ public class StudentDAO {
 
 	public void insertLectureMap(List<Lecture> list, long studentId, PreparedStatement ps) throws Exception {
 
-		// Date º¯È¯
+		// Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 		try {
 
-			// bulk insert Ã³¸®
+			// bulk insert Ã³ï¿½ï¿½
 			for (Lecture r : list) {
 				ps.setLong(1, r.getLectureId());
 				ps.setInt(2, r.getRoomCode());
 				ps.setInt(3, r.getSubjectCode());
 				ps.setInt(4, r.getTime());
-				ps.setDate(5, sqlDate); // »ý¼º ½Ã°£
-				ps.setDate(6, sqlDate); // ¼öÁ¤ ½Ã°£
+				ps.setDate(5, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+				ps.setDate(6, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-				ps.addBatch(); // OraclePreparedStatement¿¡ batch·Î ¿Ï¼ºµÈ SQL Ãß°¡
-				ps.clearParameters(); // OraclePreparedStatement¿¡ ÁöÁ¤µÈ Parameter°ª ÃÊ±âÈ­
+				ps.addBatch(); // OraclePreparedStatementï¿½ï¿½ batchï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½ SQL ï¿½ß°ï¿½
+				ps.clearParameters(); // OraclePreparedStatementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Parameterï¿½ï¿½ ï¿½Ê±ï¿½È­
 			}
 
-			ps.executeBatch(); // ´©ÀûµÈ batch ½ÇÇà
-			ps.clearBatch(); // ´©ÀûµÈ batch ÃÊ±âÈ­
+			ps.executeBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½ï¿½ï¿½ï¿½
+			ps.clearBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½Ê±ï¿½È­
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 
 		}
+	}
+	public List<Lecture> selectMap(long studentId) throws Exception {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		String sql = "SELECT StudentId, StudentName, RegistrationNumber, PhoneNumber, Adress, Email, S.CreateDate, S.UpdateDate, "
+				+ "L.LectureId, RoomCode, SubjectCode, Time, L.CreateDate, L.UpdateDate FROM Student S "
+				+ "INNER JOIN StudentMap SM ON S.StudentId = SM.StudentId "
+				+ "INNER JOIN Lecture L ON SM.LectureId = L.LectureId WHERE S.StudentId = ?";
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, studentId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Lecture lecture = new Lecture();
+				lecture.setLectureId(rs.getLong("LectureId"));
+				lecture.setRoomCode(rs.getInt("RoomCode"));
+				lecture.setSubjectCode(rs.getInt("SubjectCode"));
+				lecture.setTime(rs.getInt("Time"));
+				lecture.setCreateDate(rs.getDate("CreateDate"));
+				lecture.setUpdateDate(rs.getDate("UpdateDate"));
+				
+				list.add(lecture);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
 	}
 
 }

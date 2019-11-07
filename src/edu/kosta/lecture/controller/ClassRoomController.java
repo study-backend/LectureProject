@@ -8,9 +8,9 @@ import edu.kosta.lecture.service.ClassRoomService;
 public class ClassRoomController {
 	private static ClassRoomService service = new ClassRoomService();
 
-	public static void SelectAll() throws Exception {
-		List<ClassRoom> list = service.selectAll() ;
-
+	public static List<ClassRoom> selectAll() throws Exception {
+		List<ClassRoom> list = service.selectAll();
+		return list;
 	}
 	
 	public static void insert(List<ClassRoom> list) throws Exception {

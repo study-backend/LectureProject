@@ -1,6 +1,5 @@
 package edu.kosta.lecture.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +13,9 @@ public class SchedulerService implements Job {
 	private SchedulerDAO dao = new SchedulerDAO();
 	private Scheduler scheduler = null;
 	
-	public void startScheduling() throws ParseException {
-		// ½ºÄÉÁÙ·¯ µ¿ÀÛ  // ÈÄ¿¡ ÀÎÅÍÆäÀÌ½º·Î »«´Ù
-		// ½ºÄÉÁÙ·¯°¡ µ¿ÀÛ ÁßÀÌ¸é ½ÃÀÛÀ» ¸·´Â´Ù ; 
+	public void startScheduling() throws Exception {
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½  // ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ ; 
 		
 		if(this.scheduler.state == Scheduler.State.Terminated) {
 			SimpleDateFormat dateTime = new SimpleDateFormat("hh:mm:ss"); 
@@ -28,37 +27,42 @@ public class SchedulerService implements Job {
 		
 	}
 	
-	public void endScheduling() {
-		// ½ºÄÉÁÙ·¯°¡ µ¿ÀÛÁßÀÌ ¾Æ´Ï¶ó¸é Á¾·á¸¦ ¸·´Â´Ù 
+	public void endScheduling() throws Exception {
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½á¸¦ ï¿½ï¿½ï¿½Â´ï¿½ 
 		if(this.scheduler.state == Scheduler.State.Stop) {
 			
 		}
 	}
 	
-	public void resumeScheduling() {
-		// ½ºÄÉÁÙ·¯°¡ µ¿ÀÛÁßÀÌ¸é Àç°³ ÇÏ´Â °ÍÀ» ¸·´Â´Ù 
+	public void resumeScheduling() throws Exception {
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ç°³ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ 
 		if(this.scheduler.state == Scheduler.State.Waiting) {
 			
 		}
 	}
 	
-	public void stopScheduling() {
-		// ½ºÄÉÁÙ·¯°¡ µ¿ÀÛÁßÀÌ ¾Æ´Ï¶ó¸é ¸ØÃß´Â °ÍÀ» ¸·´Â´Ù
+	public void stopScheduling() throws Exception {
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
 		if (this.scheduler.state == Scheduler.State.Running) {
 
 		}
 	}
 
-	// ÀÎÅÍÆäÀÌ½º¿¡ µ¿ÀÛÇÒ ¼­ºñ½º // ±¸µ¶°ú °°Àº ºÎºÐÀÇ È®ÀÎÀ» ÇÑ´Ù 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½ 
 	@Override
-	public void periodEvent(Date date) {
-		List<Student> list = dao.selectSubscriptionStudent();
+	public void periodEvent(Date date) throws Exception {
+		try {
+			List<Student> list = dao.selectSubscriptionStudent();
+			
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ 
+			// 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ñ½º°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ 
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½
+			
+			dao.updatePeriod(list);
+		} catch(Exception e) {
+			throw e;
+		}
 		
-		// ÇöÀç ÇÐ»ýµéÀÌ ½ÃÀÛÇÑ ³¯Â¥¿Í ½ºÄÉÁÙ·¯¿¡¼­ º¸³»ÁØ ³¯Â¥¸¦ ºñ±³ÇØ¼­ 
-		// 1´Þ ±¸µ¶ ¼­ºñ½º°¡ ³¡³¯ °æ¿ì ÇØ´ç ±¸µ¶¿¡ ´ëÇØ ÇØÁöÇÑ´Ù 
-		// ¿¬ÀåÇÏÁö ¾ÊÀ¸¸é ÇØÁö¸¦ ½ÃÅ²´Ù
-		
-		dao.updatePeriod(list);
 	}
 	
 	

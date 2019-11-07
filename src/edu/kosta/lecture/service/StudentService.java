@@ -1,6 +1,6 @@
 package edu.kosta.lecture.service;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.kosta.lecture.biz.StudentBiz;
@@ -17,7 +17,6 @@ public class StudentService implements StudentBiz {
 		List<Student> list = dao.selectAll();
 		return list;
 	}
-	
 
 	public void insert(Student student) throws Exception {
 		
@@ -39,9 +38,15 @@ public class StudentService implements StudentBiz {
 	
 	
 	@Override
-	public void selectLectureMap(int studentId) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public List<Student> selectLectureMap(int studentId) throws Exception {
+		List<Student> list = new ArrayList<Student>();
+		Student student = this.dao.selectById(studentId);
+		if(student != null) {
+			List<Lecture> lectures = this.dao.selectMap(studentId);
+			student.setLectureList(lectures);
+			list.add(student);
+		}
+		return list;
 	}
 	
 
@@ -50,11 +55,11 @@ public class StudentService implements StudentBiz {
 		UnitOfWork uow = new UnitOfWorkImpl();
 		
 		try {
-			String sql = "INSERT INTO Student(RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
+			String sql = "INSERT INTO Student(StudentId, StudentName, RegistrationNumber, PhoneNumber, Address, Email, CreateDate, UpdateDate) VALUES(?, ?, ?, ? ,? ,? , ?, ?)";
 			dao.bulkInsert(list, uow.beginTransaction(sql));
 			for(Student s : list) {
 				List<Lecture> lectures = s.getLectureList();
-				sql = "INSERT INTO Student(RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
+				sql = "INSERT INTO StudentMap(LectureId, StudentId, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
 				dao.insertLectureMap(lectures, s.getStudentId(), uow.beginTransaction(sql));
 			}
 			
@@ -69,12 +74,5 @@ public class StudentService implements StudentBiz {
 		}
 
 	}
-
-
-
-
-	
-
-
 	
 }

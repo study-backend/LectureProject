@@ -6,7 +6,7 @@ public class ValidationChecker {
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean analysis(){
+	public boolean analysis(String json){
 		return true;
 	}
 

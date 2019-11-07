@@ -1,5 +1,6 @@
 package edu.kosta.lecture.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.kosta.lecture.biz.TeacherBiz;
@@ -34,8 +35,15 @@ public class TeacherService implements TeacherBiz {
 	}
 
 	@Override
-	public void selectLectureMap(int teacherId) {
-		// TODO Auto-generated method stub
+	public List<Teacher> selectLectureMap(int teacherId) throws Exception {
+		List<Teacher> list = new ArrayList<Teacher>();
+		Teacher teacher = this.dao.selectById(teacherId);
+		if(teacher != null) {
+			List<Lecture> lectures = this.dao.selectMap(teacherId);
+			teacher.setLectureList(lectures);
+			list.add(teacher);
+		}
+		return list;
 
 	}
 
@@ -44,14 +52,13 @@ public class TeacherService implements TeacherBiz {
 		UnitOfWork uow = new UnitOfWorkImpl();
 
 		try {
-
 			String sql = "INSERT INTO Teacher(TeacherId, TeacherName, RegistrationNumber, Address, PhoneNumber, Email, CreateDate, UpdateDate) VALUES(?, ?, ?, ?, ?, ?, ? )";
 			dao.bulkInsert(list, uow.beginTransaction(sql));
 
 			for (Teacher s : list) {
 				List<Lecture> lectures = s.getLectureList();
-				sql = "INSERT INTO (RoomCode, Capacity, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
-				dao.insertLectureMap(lectures, uow.beginTransaction(sql));
+				sql = "INSERT INTO TeacherMap(LectureId, TeacherId, CreateDate, UpdateDate) VALUES(?, ?, ?, ? )";
+				dao.insertLectureMap(lectures, s.getTeacherId(), uow.beginTransaction(sql));
 			}
 			uow.commit();
 		} catch (Exception e) {

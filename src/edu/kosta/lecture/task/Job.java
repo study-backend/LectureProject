@@ -4,6 +4,6 @@ import java.util.Date;
 
 public interface Job {
 	
-	// ±â°£Á¦ ÀÛ¾÷¿¡ ´ëÇÑ Ã³¸®ÇÏ´Â ºÎºÐ 
-	public void periodEvent(Date date);
+	// ï¿½â°£ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½ 
+	public void periodEvent(Date date) throws Exception;
 }

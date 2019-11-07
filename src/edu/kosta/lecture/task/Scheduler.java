@@ -61,12 +61,17 @@ public class Scheduler extends ScheduleBase {
 
 				@Override
 				public void run() {
-					// ÇÏ·çÁß¿¡ 00:00:00 ´Â ´ÜÇÑ¹ø ¹ß»ýµÇ¹Ç·Î
-					Task.this.job.periodEvent(new Date());
+					// ï¿½Ï·ï¿½ï¿½ß¿ï¿½ 00:00:00 ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ¹ï¿½ ï¿½ß»ï¿½ï¿½Ç¹Ç·ï¿½
+					try {
+						Task.this.job.periodEvent(new Date());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 				}
 			};
-			// 1ºÐµÚºÎÅÍ 24½Ã°£ µ¿¾È ÇÑ¹ø¾¿ ¹Ýº¹ÇÏ±â À§ÇØ¼­ 
+			// 1ï¿½ÐµÚºï¿½ï¿½ï¿½ 24ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ 
 			timer.schedule(timerTask, (1000 * 60), periodmilliseconds);
 		}
 	}

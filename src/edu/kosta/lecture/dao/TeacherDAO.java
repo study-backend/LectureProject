@@ -52,12 +52,47 @@ public class TeacherDAO {
 
 	}
 	
+	public Teacher selectById(long teacherId) throws Exception {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Teacher teacher = null;
+		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber,"
+				+ "Address, Email, CreateDate, UpdateDate FROM Teacher WHERE TeacherId = ?";
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, teacherId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				teacher = new Teacher();
+				teacher.setTeacherId(rs.getLong("TeacherId"));
+				teacher.setTeacherName(rs.getString("TeacherName"));
+				teacher.setRegistrationNumber(rs.getString("RegistrationNumber"));
+				teacher.setPhoneNumber(rs.getString("PhoneNumber"));
+				teacher.setAddress(rs.getString("Address"));
+				teacher.setEmail(rs.getString("Email"));
+				teacher.setCreateDate(rs.getDate("CreateDate"));
+				teacher.setUpdateDate(rs.getDate("UpdateDate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return teacher;
+	}
+	
 //////////////////////insert
 	public void insert(Teacher teacher) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		//Date º¯È¯
+		//Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
@@ -68,17 +103,16 @@ public class TeacherDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 
-
 			ps.setLong(1, teacher.getTeacherId());
 			ps.setString(2, teacher.getTeacherName());
 			ps.setString(3, teacher.getRegistrationNumber());
 			ps.setString(4, teacher.getPhoneNumber());
 			ps.setString(5, teacher.getAddress());
 			ps.setString(6, teacher.getEmail());
-			ps.setDate(7, sqlDate); // »ý¼º ½Ã°£
-			ps.setDate(8, sqlDate); // ¼öÁ¤ ½Ã°£
+			ps.setDate(7, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+			ps.setDate(8, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-			ps.executeBatch(); // ´©ÀûµÈ batch ½ÇÇà
+			ps.executeBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½ï¿½ï¿½ï¿½
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,17 +128,17 @@ public class TeacherDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 
-		//Date º¯È¯
+		//Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 		String sql = "UPDATE Teacher SET  TeacherName= ?, RegistrationNumber = ?, PhoneNumber = ?, Address = ? , "
 				+ "Email = ?, UpdateDate = ? WHERE TeacherId = ?";
-		//°­»ç  ¾ÆÀÌµð°¡ "" ÀÏ ¶§ ¸ðµÎ º¯°æ °¡´É
+		//ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½Ìµï¿½ "" ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		try {
-			con = DbUtil.getConnection(); // ¿¬°É
-			ps = con.prepareStatement(sql); // SQL¹® ÁØºñ
+			con = DbUtil.getConnection(); // ï¿½ï¿½ï¿½ï¿½
+			ps = con.prepareStatement(sql); // SQLï¿½ï¿½ ï¿½Øºï¿½
 
 			ps.setString(1, teacher.getTeacherName());
 			ps.setString(2, teacher.getRegistrationNumber());
@@ -157,16 +191,14 @@ public class TeacherDAO {
 
 
 	public void bulkInsert(List<Teacher> list, PreparedStatement ps) throws Exception  {
-		
-		
-		
-		// Date º¯È¯
+
+		// Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
 		try {
 			
-			// bulk insert Ã³¸®
+			// bulk insert Ã³ï¿½ï¿½
 			for (Teacher r : list) {
 				ps.setLong(1, r.getTeacherId());
 				ps.setString(2, r.getTeacherName());
@@ -174,15 +206,15 @@ public class TeacherDAO {
 				ps.setString(4, r.getPhoneNumber());
 				ps.setString(5, r.getAddress());
 				ps.setString(6, r.getEmail());
-				ps.setDate(7, sqlDate); // »ý¼º ½Ã°£
-				ps.setDate(8, sqlDate); // ¼öÁ¤ ½Ã°£
+				ps.setDate(7, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+				ps.setDate(8, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-				ps.addBatch(); // OraclePreparedStatement¿¡ batch·Î ¿Ï¼ºµÈ SQL Ãß°¡
-				ps.clearParameters(); // OraclePreparedStatement¿¡ ÁöÁ¤µÈ Parameter°ª ÃÊ±âÈ­
+				ps.addBatch(); // OraclePreparedStatementï¿½ï¿½ batchï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½ SQL ï¿½ß°ï¿½
+				ps.clearParameters(); // OraclePreparedStatementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Parameterï¿½ï¿½ ï¿½Ê±ï¿½È­
 			}
 			
-			ps.executeBatch(); // ´©ÀûµÈ batch ½ÇÇà
-			ps.clearBatch(); // ´©ÀûµÈ batch ÃÊ±âÈ­
+			ps.executeBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½ï¿½ï¿½ï¿½
+			ps.clearBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½Ê±ï¿½È­
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -191,38 +223,69 @@ public class TeacherDAO {
 		} 
 	}
 
-	public void insertLectureMap(List<Lecture> list, PreparedStatement ps) throws Exception {
+	public void insertLectureMap(List<Lecture> list, long teacherId, PreparedStatement ps) throws Exception {
 		
-		// Date º¯È¯
+		// Date ï¿½ï¿½È¯
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		
-		
-
 		try {
-			
-			// bulk insert Ã³¸®
+			// bulk insert Ã³ï¿½ï¿½
 			for (Lecture r : list) {
 				ps.setLong(1, r.getLectureId());
-				ps.setInt(2, r.getRoomCode());
-				ps.setInt(3, r.getSubjectCode());
-				ps.setInt(4, r.getTime());
-				ps.setDate(5, sqlDate); // »ý¼º ½Ã°£
+				ps.setLong(2, teacherId);
+				ps.setDate(5, sqlDate); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 				ps.setDate(6, sqlDate);
 
-				ps.addBatch(); // OraclePreparedStatement¿¡ batch·Î ¿Ï¼ºµÈ SQL Ãß°¡
-				ps.clearParameters(); // OraclePreparedStatement¿¡ ÁöÁ¤µÈ Parameter°ª ÃÊ±âÈ­
+				ps.addBatch(); // OraclePreparedStatementï¿½ï¿½ batchï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½ï¿½ SQL ï¿½ß°ï¿½
+				ps.clearParameters(); // OraclePreparedStatementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Parameterï¿½ï¿½ ï¿½Ê±ï¿½È­
 			}
 			
-			ps.executeBatch(); // ´©ÀûµÈ batch ½ÇÇà
-			ps.clearBatch(); // ´©ÀûµÈ batch ÃÊ±âÈ­
+			ps.executeBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½ï¿½ï¿½ï¿½
+			ps.clearBatch(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ batch ï¿½Ê±ï¿½È­
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
-
 		} 
 	}
+	
+	public List<Lecture> selectMap(long teacherId) throws Exception {
 
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		String sql = "SELECT TeacherId, TeacherName, RegistrationNumber, PhoneNumber, "
+				+ "Address, Email, CreateDate, UpdateDate FROM Teacher T"
+				+ "INNER JOIN TeacherMap TM ON T.TeacherId = TM.TeacherId "
+				+ "INNER JOIN Lecture L ON TM.LectureId = L.LectureId WHERE T.TeacherId = ?";
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, teacherId);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Lecture lecture = new Lecture();
+				lecture.setLectureId(rs.getLong("LectureId"));
+				lecture.setRoomCode(rs.getInt("RoomCode"));
+				lecture.setSubjectCode(rs.getInt("SubjectCode"));
+				lecture.setTime(rs.getInt("Time"));
+				lecture.setCreateDate(rs.getDate("CreateDate"));
+				lecture.setUpdateDate(rs.getDate("UpdateDate"));
+				
+				list.add(lecture);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
+	}
 	
 }

@@ -4,14 +4,21 @@ public class ApiResponse {
 
 	private String msg;
 	private ResponseStatus statusCode = ResponseStatus.initial;
+	private String json;
 
 	public ApiResponse() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public ApiResponse(String msg, ResponseStatus code) {
 		this.msg = msg;
 		this.statusCode = code;
+	}
+
+	public ApiResponse(String msg, ResponseStatus code, String json) {
+		this.msg = msg;
+		this.statusCode = code;
+		this.json = json;
 	}
 
 	public String getMsg() {
@@ -28,6 +35,22 @@ public class ApiResponse {
 
 	public void setStatusCode(ResponseStatus statusCode) {
 		this.statusCode = statusCode;
+	}
+	
+	
+
+	/**
+	 * @return the json
+	 */
+	public String getJson() {
+		return json;
+	}
+
+	/**
+	 * @param json the json to set
+	 */
+	public void setJson(String json) {
+		this.json = json;
 	}
 
 	@Override

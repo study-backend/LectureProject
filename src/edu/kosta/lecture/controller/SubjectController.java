@@ -10,8 +10,9 @@ public class SubjectController {
 
 	private static SubjectService service = new SubjectService();
 
-	public static void selectAll() throws Exception {
+	public static List<Subject> selectAll() throws Exception {
 		List<Subject> list = service.selectAll();
+		return list;
 	}
 	
 	public static void insert(List<Subject> list) throws Exception {

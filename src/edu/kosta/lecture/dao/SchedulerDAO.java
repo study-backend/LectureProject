@@ -10,11 +10,11 @@ public class SchedulerDAO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void updatePeriod(List<Student> list) {
+	public void updatePeriod(List<Student> list) throws Exception{
 		
 	}
 	
-	public List<Student> selectSubscriptionStudent() {
+	public List<Student> selectSubscriptionStudent() throws Exception {
 		return null;
 	}
 }
