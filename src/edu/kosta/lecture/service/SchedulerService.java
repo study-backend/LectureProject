@@ -17,7 +17,7 @@ public class SchedulerService implements Job {
 		// �����ٷ� ����  // �Ŀ� �������̽��� ����
 		// �����ٷ��� ���� ���̸� ������ ���´� ; 
 		
-		if(this.scheduler.state == Scheduler.State.Terminated) {
+		if(this.scheduler == null) {
 			SimpleDateFormat dateTime = new SimpleDateFormat("hh:mm:ss"); 
 			Date d = dateTime.parse("00:00:00.0"); 
 			Date p = dateTime.parse("23:00:00.0");
@@ -64,6 +64,8 @@ public class SchedulerService implements Job {
 		}
 		
 	}
+	
+	//public void subscriptionEvent()
 	
 	
 	

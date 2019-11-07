@@ -32,6 +32,7 @@ public class Scheduler extends ScheduleBase {
 		@Override
 		public void run() {
 
+			System.out.println("나는 동작한다");
 			// getTime
 			Date time = Scheduler.this.getTriggerTime();
 			Date period = Scheduler.this.getPeriod();
